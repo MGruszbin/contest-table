@@ -5,8 +5,8 @@ export class CandidateService {
 
 
   constructor(private location:Location,makecanService:MakingcandidateService) { }
-
    getRandomIntInclusive(min:number, max:number) {
+   
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -14,13 +14,16 @@ export class CandidateService {
 
 
   getCandidates(): Observable<candidate[]> {
+  
     const candidates = of(CANDIDATES)
     return candidates
   }
   getCandidatebyid(id:number): Observable<candidate> {
+  
     return of(CANDIDATES.find(candidate => candidate.id === id))
   }
   removecandidate(candidate:candidate) {
+  
     const remcan =  CANDIDATES.indexOf(candidate)
     if(-1 !== remcan) {
       CANDIDATES.splice(remcan, 1);
@@ -28,6 +31,7 @@ export class CandidateService {
   }
   }
   makeCandidatesinpairs(): Observable<number> {
+  
     const candidates = CANDIDATES
     let y: number = 1
     let x : number = candidates.length
@@ -35,6 +39,7 @@ export class CandidateService {
     while (x >= 2) {
 
         if (x == 2){
+        
           x = Math.pow(x,y)
           console.log(x,"my num")
           return of(x)
@@ -49,7 +54,9 @@ export class CandidateService {
             return of(x)
 
         }
+        
         if (x <= 0){
+        
            console.error("Write more candidates");
            this.location.back();
            break
@@ -86,20 +93,22 @@ export class CandidateService {
      return of(x)
 
   }
-  // Funkcje do sortowania kandydatów
   }
+  
   sorttolists(x:number,newcandidates:candidate[],innercandidatelist:candidate[]): void{
+  
     if(x == newcandidates.length-1) {
       innercandidatelist.push(newcandidates[newcandidates.length-1])
       newcandidates.pop()
     }
     else{
       newcandidates.push(newcandidates.splice(x, 1)[0]);
-  innercandidatelist.push(newcandidates[(newcandidates.length-1)])
-  newcandidates.pop()
+      innercandidatelist.push(newcandidates[(newcandidates.length-1)])
+      newcandidates.pop()
   }
   }
   checkaproperfree(innercandidatelistx:candidate[],w:number)  {
+  
     for(var value of innercandidatelistx) {
       if (value.isFreeSlot){
         w = w + 1
@@ -110,6 +119,7 @@ export class CandidateService {
     }else {return 0}
   }
   makeacount(cansad:candidate[],freecanlistfortrue:candidate[],freecanlistforfalse:candidate[]): void{
+  
     let innerlisttrue:candidate[] = []
     let innerlistfalse:candidate[] = []
     let x = 0
@@ -125,20 +135,23 @@ export class CandidateService {
         }
   }
   while (x != innerlistfalse.length){
+  
     this.sorttolists(0,innerlistfalse,freecanlistforfalse)
 
     }
 
   while (x != innerlisttrue.length){
-  this.sorttolists(0,innerlisttrue,freecanlistfortrue)
+  
+    this.sorttolists(0,innerlisttrue,freecanlistfortrue)
 
   }
 }
   makealistfordev(x:number): Observable<candidate[][]>{
-   let outhercandidatelist:candidate[][] = []
-   let newcandidatesfree:candidate[] = []
-   let newcandidates:candidate[] = []
-   let newcandidatesnormal = CANDIDATES.slice(0)
+  
+    let outhercandidatelist:candidate[][] = []
+    let newcandidatesfree:candidate[] = []
+    let newcandidates:candidate[] = []
+    let newcandidatesnormal = CANDIDATES.slice(0)
 
     this.makeacount(newcandidatesnormal,newcandidatesfree,newcandidates)
     console.log(newcandidates, "newcans")

@@ -1,13 +1,3 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { throwError,Observable, of, generate  } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
-import { Location } from '@angular/common';
-
-import {CANDIDATES} from './one-candidate-mock'
-import {candidate} from './candidate-calss'
-import { MakingcandidateService } from './makingcandidate.service';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -176,4 +166,5 @@ export class CandidateService {
     return of(outhercandidatelist)
   }
 }
+
 
